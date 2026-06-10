@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!--===================FORMULÁRIO REGISTRO==================================-->
+<div class="container mt-4">
+    <h1 class="mb-4">Cadastro</h1>
+
+    <!--============================TOTAL GANHO==============================-->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 p-4">
+                <h5 class="text-muted">
+                    Total Ganho
+                </h5>
+                <h1 class="text-success">
+                    R$ {{ total }}
+                </h1>
+            </div>
+        </div>
+    
+
+    <!--=================================TOTAL DIAS=================================-->
+        <div class="col-6">
+            <div class="card shadow-sm border-0 p-4">
+                <h5 class="text-muted">
+                    Total Diárias
+                </h5>
+                <h1 class="text-primary">
+                    {{ total_dias}}
+
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!--==================================FORMUÇÁRIO USUÁRIO=============================-->
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="row mb-1">
+            <div class="col-4">
+                {{ form.local.label(class="form-label") }}
+                {{ form.local(class="form-control") }}
+            </div>
+
+            <div class="col-4">
+                {{ form.data.label(class="form-label") }}
+                {{ form.data(class="form-control") }}
+            </div>
+
+
+            <div class="col-4">
+                {{ form.valor.label(class="form-label") }}
+                {{ form.valor(class="form-control", type="number") }}
+            </div>
+        </div>
+        <button class="btn btn-primary">
+            Salvar
+        </button>
+    </form>
+</div>
+
+
+<!--=======================TABELA USUÁRIO============================================-->
+<div class="container mt-4">
+    <h1 class="mb-4">Registros Diárias</h1>
+
+
+    <div class="table-responsive shadow-sm rounded">
+        <table class="table table-striped table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th >Local</th>
+                    <th class="text-center">Data</th>
+                    <th class="text-end">Valor R$</th>
+                </tr>
+            </thead>
+        
+
+            <tbody>
+                {% for registro in registros %}
+                <tr>
+                    <td>{{ registro.local }}</td>
+                    <td class="text-center">{{ registro.data.strftime('%d/%m/%Y') }}</td>
+                    <td class="text-end">R$ {{ registro.valor }}</td>
+
+                    
+                    <!--=================BOTÃO DE EXCLUIR LINHA A LINHA===================-->
+                    <td class="d-flex gap-2">
+                        <form action="{{url_for('main.excluir', id=registro.id) }}" method="POST">
+                            <button type="submit"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Deseja excluir este registro?')" >
+                                    Excluir
+                                </button>
+                        </form>
+
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-end mt-1">
+            <a href="{{ url_for('main.limpar_tabela') }}"
+            class="btn btn-danger  "
+            onclick="return confirm('Deseja apagar todos os dados da tabela?')">
+            Excluir tudo
+            </a>
+        </div>
+    
+        
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
+    
+
+
+
+
+
+
