@@ -8,3 +8,5 @@ class RegistroForm (FlaskForm):
     local = StringField('Local', validators=[DataRequired()])
     valor = FloatField('Valor R$', validators=[DataRequired()])
     salvar = SubmitField('Salvar')
+    pesquisar = StringField("", render_kw={'placeholder':'Digite o local ou a data para pesquisar'})
+    submit = SubmitField('Buscar')

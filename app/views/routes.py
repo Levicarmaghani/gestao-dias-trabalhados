@@ -3,7 +3,7 @@ from flask import render_template, redirect ,url_for, request, flash
 from app.forms.dias_form import RegistroForm
 from app.models.dia import RegistroTrabalho
 from app import db
-from sqlalchemy import func
+from sqlalchemy import func, or_
 
 
 # Importando Blueprint
@@ -44,6 +44,25 @@ def excluir(id):
     db.session.commit()
 
     return redirect(url_for('main.home'))
+
+@main_bp.route('/lista-dias')
+def lista_dias():
+
+    form = RegistroForm(request.args)    
+    pesquisar = form.pesquisar.data or ""
+
+    registros = RegistroTrabalho.query.order_by(RegistroTrabalho.data)
+
+    if pesquisar != "":
+        registros = registros.filter(or_(RegistroTrabalho.local.contains(pesquisar),
+                                    RegistroTrabalho.data.contains(pesquisar)
+                                    ))
+
+    return render_template('index.html',
+                            form = form,
+                            registros = registros.all(),
+                            pesquisar=pesquisar
+                            )
 
       
 

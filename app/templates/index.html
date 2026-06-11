@@ -62,11 +62,21 @@
 
 
 <!--=======================TABELA USUÁRIO============================================-->
+
+
+
 <div class="container mt-4">
-    <h1 class="mb-4">Registros Diárias</h1>
+    <h1 class="">Registros Diárias</h1>
+
+    <form method="GET" action="{{url_for('main.lista_dias') }}">
+        <div class="input-group">
+            {{ form.pesquisar(class="form-control mt-1")}}
+            {{ form.submit(class="btn btn-dark mt-2")}}
+        </div>
+    </form>
 
 
-    <div class="table-responsive shadow-sm rounded">
+    <div class="table-responsive shadow-sm rounded mt-4">
         <table class="table table-striped table-hover mb-0">
             <thead class="table-dark">
                 <tr>
