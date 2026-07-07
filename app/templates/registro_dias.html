@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-2">
+    Seja bem-vindo, {{ current_user.nome }}
+</h2>
+
+<p class="text-muted">
+    Aqui voce pode registrar e acompanhar suas diárias.
+</p>
+
+
+<!--============================TOTAL GANHO==============================-->
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 p-4">
+                <h5 class="text-muted">
+                    Total Ganho
+                </h5>
+                <h1 class="text-success">
+                    R$ {{ total }}
+                </h1>
+            </div>
+        </div>
+    
+
+    <!--=================================TOTAL DIAS=================================-->
+        <div class="col-6">
+            <div class="card shadow-sm border-0 p-4">
+                <h5 class="text-muted">
+                    Total Diárias
+                </h5>
+                <h1 class="text-primary">
+                    {{ total_dias}}
+
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!--==================================FORMULÁRIO DIAS =========================-->
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="row mb-1">
+            <div class="col-4">
+                {{ form.local.label(class="form-label") }}
+                {{ form.local(class="form-control") }}
+            </div>
+
+            <div class="col-4">
+                {{ form.data.label(class="form-label") }}
+                {{ form.data(class="form-control") }}
+            </div>
+
+
+            <div class="col-4">
+                {{ form.valor.label(class="form-label") }}
+                {{ form.valor(class="form-control", type="number") }}
+            </div>
+        </div>
+        <button class="btn btn-primary">
+            Salvar
+        </button>
+    </form>
+</div>
+{% include 'lista_dias.html' %}
+
+{% endblock  %}
+
+
+
+
+
+

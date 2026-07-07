@@ -1,0 +1,106 @@
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Fundo */
+.background-box {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    z-index: 0;
+}
+
+/* Container principal (INVERTIDO) */
+.login-container {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: row-reverse; /* 🔥 INVERTE OS LADOS */
+    align-items: center;
+    justify-content: space-between;
+
+    width: 90%;
+    max-width: 1100px;
+    gap: 50px;
+    padding: 40px;
+}
+
+/* Card do login */
+.login-card {
+    flex: 1;
+    max-width: 420px;
+
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Lado de apresentação */
+.presentation {
+    flex: 1;
+    color: #ffffff;
+}
+
+.presentation h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.presentation p {
+    font-size: 1.1rem;
+    opacity: 0.85;
+}
+
+/* Cadastro */
+.cadastro {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cadastro a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Form */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.btn-login {
+    background: #2563eb;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-login:hover {
+    background: #1d4ed8;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column; /* no mobile vira coluna */
+        text-align: center;
+    }
+
+    .login-card,
+    .presentation {
+        width: 100%;
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Seção principal da página de cadastro -->
+<section>
+
+    <!-- Container central da página -->
+    <div class="container">
+
+        <!-- Centraliza o card horizontalmente -->
+        <div class="row justify-content-center">
+
+            <!-- Define a largura do card em diferentes tamanhos de tela -->
+            <div class="col-md-6 col-lg-5">
+
+                <!-- Card que contém o formulário -->
+                <div class="card shadow p-4">
+
+                    <!-- Título da página -->
+                    <h1 class="text-center mb-3">
+                        Criar conta
+                    </h1>
+
+                    <!-- Descrição do formulário -->
+                    <p class="text-center text-muted mb-4">
+                        Cadastre-se para começar a controlar seus dias trabalhados
+                    </p>
+
+                    <!-- Formulário de cadastro -->
+                    <form method="POST">
+
+                        <!-- Token CSRF de proteção contra ataques -->
+                        {{ form.csrf_token }}
+
+                        <!-- Campo Nome -->
+                        <div class="mb-3">
+
+                            <!-- Campo de entrada -->
+                            {{ form.nome.label(class="form-label") }}
+                            <!-- Label do campo -->
+                            {{ form.nome(class="form-control", placeholder="Digite seu nome") }}
+
+
+                            <!-- Exibe mensagens de erro do campo -->
+                            {% for erro in form.nome.errors %}
+                                <div class="text-danger">
+                                    {{ erro }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+
+                        <!-- Campo Sobrenome -->
+                        <div class="mb-3">
+
+                            {{ form.sobrenome.label(class="form-label") }}
+                            {{ form.sobrenome(class="form-control", placeholder="Digite seu sobrenome") }}
+
+
+                            {% for erro in form.sobrenome.errors %}
+                                <div class="text-danger">
+                                    {{ erro }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        
+                        <!-- Campo E-mail -->
+                        <div class="mb-3">
+
+                            {{ form.email.label(class="form-label") }}
+                            {{ form.email(class="form-control", placeholder="Digite seu e-mail") }}
+
+
+                            <!-- Exibe erro caso o e-mail seja inválido ou já exista -->
+                            {% for erro in form.email.errors %}
+                                <div class="text-danger">
+                                    {{ erro }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+
+                        <!-- Campo Senha -->
+                        <div class="mb-3">
+
+                            {{ form.senha.label(class="form-label") }}
+                            {{ form.senha(class="form-control", placeholder="Digite sua senha") }}
+
+
+                            {% for erro in form.senha.errors %}
+                                <div class="text-danger">
+                                    {{ erro }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+
+                        <!-- Campo Confirmação de Senha -->
+                        <div class="mb-3">
+
+                            {{ form.confirmacao_senha.label(class="form-label") }}
+                            {{ form.confirmacao_senha(class="form-control", placeholder="Confirme sua senha") }}
+
+
+                            <!-- Exibe erro quando as senhas não coincidem -->
+                            {% for erro in form.confirmacao_senha.errors %}
+                                <div class="text-danger">
+                                    {{ erro }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Botão para enviar o formulário -->
+                        <div class="d-grid mt-4">
+                            {{ form.submit(class="btn btn-primary btn-lg") }}
+                        </div>
+
+                        <!--Botão para volta para login -->
+                        <div class="text-center mt-3">
+                            <p class="mb-1">
+                                Já possui conta?
+                            </p>
+
+                            <a href="{{ url_for('main.login') }}"
+                            class="text-decoration-none fw-semibold">
+                                Entrar
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+
+
+
+

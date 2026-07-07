@@ -1,7 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -12,61 +12,29 @@
     </title>
 
     <!-- Bootstrap CSS -->
-    <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" 
-        rel="stylesheet"
-    >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet">
 
-    <!-- CSS Projeto -->
-    <link 
-        rel="stylesheet" 
-        href="{{ url_for('static', filename='css/style.css') }}"
-    >
-
-    {% block css %} {% endblock %}
-
+    <!-- CSS específico de cada página -->
+    {% block css %}
+    {% endblock %}
 </head>
 <body>
-    <div class="container mt-3">
 
-        {% with mensagens = get_flashed_messages(with_categories=true) %}
+    <!-- Mensagens Flash -->
+    
 
-            {% if mensagens %}
+    <!-- Conteúdo de cada página -->
+    {% block content %}
+    {% endblock %}
 
-                {% for categoria, mensagem in mensagens %}
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
-                    <div class="alert alert-{{ categoria }} alert-dismissible fade show">
-
-                        {{ mensagem }}
-
-                        <button 
-                            class="btn-close"
-                            data-bs-dismiss="alert">
-                        </button>
-
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-    </div>
-
-
-            
-
-
-    {% block content %}  {% endblock %}
-   <!-- Bootstrap JS -->
-   <script 
-       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
-   </script>
-
-   <!-- JS Projeto -->
-   <script 
-       src="{{ url_for('static', filename='js/script.js') }}">
-   </script>
-
-   {% block js %} {% endblock %}
+    <!-- JavaScript específico da página -->
+    {% block scripts %}
+    {% endblock %}
 
 </body>
 </html>
-
+```

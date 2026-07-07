@@ -1,11 +1,11 @@
 from app import db
 from sqlalchemy import func
 
-
+# Registro de dias
 class RegistroTrabalho(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.Date, nullable=False)
-    local = db.Column(db.String, nullable=True)
+    local = db.Column(db.String(100), nullable=True)
     valor = db.Column(db.Float, nullable=False)
 
     @classmethod
