@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2 class="mb-2">
-    Seja bem-vindo, {{ current_user.nome }}
-</h2>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">
+        Seja bem-vindo, {{ current_user.nome }}
+    </h2>
+
+    <a href="{{ url_for('main.logout') }}" class="btn btn-outline-danger">
+        Sair
+    </a>
+</div>
+
 
 <p class="text-muted">
     Aqui voce pode registrar e acompanhar suas diárias.

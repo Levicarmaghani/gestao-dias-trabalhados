@@ -1,5 +1,5 @@
 from flask import flash, redirect, render_template, url_for
-from flask_login import login_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 from app.forms.cadastro_form import UserForm
 from app.forms.login_form import LoginForm
@@ -11,13 +11,16 @@ from app.models.cadastro_usuario import User
 
 
 
-from app.views import main_bp
 #============================
 # LOGIN USUARIO
 #=============================
 
 @main_bp.route('/', methods=['GET', 'POST'])
 def login():
+    
+    if current_user.is_authenticated:
+        return redirect(url_for('main.registro_dias'))
+    
     form = LoginForm()
 
     if form.validate_on_submit():
@@ -43,15 +46,25 @@ def cadastro_usuario():
     form = UserForm()
 
     if form.validate_on_submit():
-        form.save()
+        usuario = form.save()
 
-        flash("Cadastro efetuado com sucesso!", "succes")
-        return redirect(url_for('main.login'))
+        login_user(usuario)
+        flash("Cadastro efetuado com sucesso!", "success")
+        return redirect(url_for('main.registro_dias'))
 
     return render_template(
         'cadastro.html',
         form=form
     )
 
+# ==========================
+#       LOGOUT
+# ==========================
+@main_bp.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("Você saiu da sua conta", 'info')
+    return redirect(url_for('main.login'))
     
         

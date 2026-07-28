@@ -1,5 +1,6 @@
 from app import db
 from sqlalchemy import func, or_
+from flask_login import login_required, login_user
 
 
 #  Importação biblioteca flask
@@ -20,6 +21,7 @@ from app.views import main_bp
 # ==========================
 
 @main_bp.route('/registro', methods=['GET', 'POST'])
+@login_required
 def registro_dias():
 
     form = RegistroForm()
@@ -53,6 +55,7 @@ def registro_dias():
 # ==========================
 
 @main_bp.route('/excluir/<int:id>', methods=['POST'])
+@login_required
 def excluir(id):
 
     registro = RegistroTrabalho.query.get_or_404(id)
@@ -69,6 +72,7 @@ def excluir(id):
 # ==========================
 
 @main_bp.route('/lista-dias')
+@login_required
 def lista_dias():
 
     form = RegistroForm(request.args)
@@ -106,6 +110,7 @@ def lista_dias():
 # ==========================
 
 @main_bp.route('/limpar')
+@login_required
 def limpar_tabela():
 
     RegistroTrabalho.query.delete()

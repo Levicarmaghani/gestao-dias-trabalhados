@@ -4,9 +4,9 @@ from flask_login import UserMixin
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+ 
 
-
-# Registro Ususário
+# Registro Usuário
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
     nome = db.Column(db.String(100), nullable = False)

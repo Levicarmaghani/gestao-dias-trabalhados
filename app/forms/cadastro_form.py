@@ -17,7 +17,8 @@ class UserForm(FlaskForm):
     submit = SubmitField('Cadastrar')
 
     def validate_email(self, email):
-        usuario = User.query.filter_by(email = email.data).first()
+        usuario = User.query.filter_by(email=email.data).first()
+
         if usuario:
             raise ValidationError("Usuário já cadastrado com esse E-mail")
     

@@ -26,16 +26,6 @@
                 Faça login para acessar seus registros de dias trabalhados.
             </p>
 
-            {% with mensagens = get_flashed_messages(with_categories=true) %}
-                {% if mensagens %}
-                    {% for categoria, mensagem in mensagens %}
-                        <div class="alert alert-{{ categoria }}">
-                            {{ mensagem }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-
             <form method="POST">
 
                 {{ form.hidden_tag() }}
@@ -80,5 +70,7 @@
     </div>
 
 </section>
+
+
 
 {% endblock %}
