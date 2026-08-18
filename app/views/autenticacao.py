@@ -24,9 +24,9 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-        usuario = User.query.filter_by(email=form.email.data).first()
+        usuario = form.autenticar()
 
-        if usuario and bcrypt.check_password_hash(usuario.senha, form.senha.data):
+        if usuario:
             login_user(usuario)
             # Retornando a função da rota do arquivo (registro_dias)
             return redirect(url_for('main.registro_dias'))

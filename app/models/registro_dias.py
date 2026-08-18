@@ -8,6 +8,9 @@ class RegistroTrabalho(db.Model):
     local = db.Column(db.String(100), nullable=True)
     valor = db.Column(db.Float, nullable=False)
 
+    # # Relação 1:N entre User e RegistroTrabalho
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+
     @classmethod
     def valor_total(cls):
         total = db.session.query(func.sum(cls.valor)).scalar()

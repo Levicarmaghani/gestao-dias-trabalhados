@@ -13,3 +13,6 @@ class User(db.Model, UserMixin):
     sobrenome = db.Column(db.String(100), nullable = False)
     email = db.Column(db.String(120), unique=True, nullable = False)
     senha = db.Column(db.String(255), nullable = False)
+
+    # Relação 1:N entre User e RegistroTrabalho
+    posts = db.relationship('RegistroTrabalho', backref = 'user', lazy=True)

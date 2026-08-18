@@ -2,24 +2,38 @@
 
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0">
-        Seja bem-vindo, {{ current_user.nome }}
-    </h2>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3 ">
+        <h2 class="mb-0">
+            Seja bem-vindo, {{ current_user.nome }}
+        </h2>
+    
+        <!--========================= Bara de Logout========================-->
+        <a href="{{ url_for('main.logout') }}"
+         class="btn btn-danger"
+         onclick="return confirm ('Deseja sair do sistema')">
+            Sair
+        </a>
+    </div>
+    
+    <p class="text-muted">
+        Aqui voce pode registrar e acompanhar suas diárias.
+    </p>
 
-    <a href="{{ url_for('main.logout') }}" class="btn btn-outline-danger">
-        Sair
-    </a>
-</div>
-
-
-<p class="text-muted">
-    Aqui voce pode registrar e acompanhar suas diárias.
-</p>
+    <!--================== Barra de pesquisa ===============================-->
+    
+        <form method="GET" action="{{url_for('main.lista_dias') }}">
+            <div class="input-group">
+            
+                {{ form.pesquisar(class="form-control mt-1")}}
+                {{ form.buscar(class="btn btn-dark mt-2")}}
+            </div>
+        </form>
+    
+    
 
 
 <!--============================TOTAL GANHO==============================-->
-<div class="container mt-4">
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="card shadow-sm border-0 p-4">
@@ -33,7 +47,7 @@
         </div>
     
 
-    <!--=================================TOTAL DIAS=================================-->
+    <!--================================TOTAL DIAS=================================-->
         <div class="col-6">
             <div class="card shadow-sm border-0 p-4">
                 <h5 class="text-muted">
@@ -47,7 +61,7 @@
         </div>
     </div>
 
-    <!--==================================FORMULÁRIO DIAS =========================-->
+    <!--=================================FORMULÁRIO DIAS =========================-->
     <form method="POST">
         {{ form.hidden_tag() }}
 

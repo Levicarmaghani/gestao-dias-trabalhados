@@ -1,6 +1,6 @@
 from app import db
 from sqlalchemy import func, or_
-from flask_login import login_required, login_user
+from flask_login import login_required, login_user, current_user
 
 
 #  Importação biblioteca flask
@@ -33,13 +33,12 @@ def registro_dias():
 
         return redirect(url_for('main.registro_dias'))
 
-    registros = RegistroTrabalho.query.all()
+    registros = RegistroTrabalho.query.filter_by(user_id=current_user.id).all()
 
     total_dias = len(registros)
 
     total = db.session.query(
-        func.sum(RegistroTrabalho.valor)
-    ).scalar() or 0
+        func.sum(RegistroTrabalho.valor)).filter(RegistroTrabalho.user_id == current_user.id).scalar() or 0
 
     return render_template(
         'registro_dias.html',
@@ -58,11 +57,11 @@ def registro_dias():
 @login_required
 def excluir(id):
 
-    registro = RegistroTrabalho.query.get_or_404(id)
+    registro = RegistroTrabalho.query.filter_by(id=id, user_id=current_user.id).first()
 
-    db.session.delete(registro)
-
-    db.session.commit()
+    if registro:
+        db.session.delete(registro)
+        db.session.commit()
 
     return redirect(url_for('main.registro_dias'))
 
@@ -79,12 +78,13 @@ def lista_dias():
 
     pesquisar = form.pesquisar.data or ""
 
-    registros = RegistroTrabalho.query.order_by(
+    registros = RegistroTrabalho.query.filter_by(
+        user_id=current_user.id
+    ).order_by(
         RegistroTrabalho.data
     )
 
     if pesquisar != "":
-
         registros = registros.filter(
             or_(
                 RegistroTrabalho.local.contains(pesquisar),
@@ -94,14 +94,21 @@ def lista_dias():
 
     registros = registros.all()
 
-    return render_template('lista_dias.html',
+    return render_template(
+        'lista_dias.html',
         form=form,
         registros=registros,
         pesquisar=pesquisar,
+
         total=db.session.query(
             func.sum(RegistroTrabalho.valor)
+        ).filter(
+            RegistroTrabalho.user_id == current_user.id
         ).scalar() or 0,
-        total_dias=RegistroTrabalho.query.count()
+
+        total_dias=RegistroTrabalho.query.filter_by(
+            user_id=current_user.id
+        ).count()
     )
 
 
@@ -109,11 +116,13 @@ def lista_dias():
 # LIMPAR TABELA
 # ==========================
 
-@main_bp.route('/limpar')
+@main_bp.route('/limpar', methods=['GET', 'POST'])
 @login_required
 def limpar_tabela():
 
-    RegistroTrabalho.query.delete()
+    RegistroTrabalho.query.filter_by(
+        user_id=current_user.id
+    ).delete()
 
     db.session.commit()
 

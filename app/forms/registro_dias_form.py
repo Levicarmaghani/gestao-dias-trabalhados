@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, FloatField, DateField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, Optional, Email, EqualTo, ValidationError
+from flask_login import current_user
 
 from app import db, bcrypt
 from app.models.registro_dias import  RegistroTrabalho
@@ -19,6 +20,7 @@ class RegistroForm (FlaskForm):
             data = self.data.data,
             local = self.local.data,
             valor = self.valor.data,
+            user_id = current_user.id
             )
         db.session.add(registro)
         db.session.commit()
