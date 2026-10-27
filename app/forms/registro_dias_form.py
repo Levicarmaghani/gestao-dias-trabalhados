@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, FloatField, DateField, SubmitField, PasswordField
-from wtforms.validators import DataRequired, Optional, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Optional, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
 
 from app import db, bcrypt
@@ -12,6 +12,7 @@ class RegistroForm (FlaskForm):
     local = StringField('Local', validators=[DataRequired()])
     valor = FloatField('Valor R$', validators=[DataRequired()])
     submit = SubmitField('Salvar')
+    atividade = StringField("Atividades", validators=[Optional(), Length(max=500)])
     pesquisar = StringField("", render_kw={'placeholder':'Digite o local ou a data para pesquisar'})
     buscar= SubmitField('Pesquisar')
 
@@ -20,8 +21,10 @@ class RegistroForm (FlaskForm):
             data = self.data.data,
             local = self.local.data,
             valor = self.valor.data,
-            user_id = current_user.id
+            user_id = current_user.id,
+            atividade = self.atividade.data
             )
         db.session.add(registro)
         db.session.commit()
         return registro
+

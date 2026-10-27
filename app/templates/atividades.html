@@ -1,0 +1,101 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="text-center mb-4">Atividades realizadas</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <p>
+                <strong>Local:</strong>
+                {{ registro.local }}
+            </p>
+
+            <p>
+                <strong>Data:</strong>
+                {{ registro.data.strftime('%d/%m/%Y') }}
+            </p>
+
+            <p>
+                <strong>Valor:</strong>
+                R$ {{ "%.2f"|format(registro.valor) }}
+            </p>
+
+            <hr>
+
+            <h5>Descrição das atividades</h5>
+
+            {% if registro.atividade %}
+                <p>{{ registro.atividade }}</p>
+            {% else %}
+                <p class="text-muted">
+                    Nenhuma atividade foi informada para este registro.
+                </p>
+            {% endif %}
+
+            <a href="{{ url_for('main.registro_dias') }}"
+               class="btn btn-secondary mt-3">
+                Voltar
+            </a>
+
+            <button
+                class="btn btn-warning btn-sm mt-3"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#editar{{ registro.id }}"
+                aria-expanded="false">
+
+                Editar atividade
+            </button>
+
+            <div class="collapse mt-3" id="editar{{ registro.id }}">
+
+                <div class="card card-body">
+
+                    <h5>Editar registro</h5>
+
+                    <form method="POST"
+                          action="{{ url_for('main.editar_atividades', id=registro.id) }}">
+
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-3">
+                            {{ form.data.label(class="form-label") }}
+                            {{ form.data(class="form-control") }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.local.label(class="form-label") }}
+                            {{ form.local(class="form-control") }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.valor.label(class="form-label") }}
+                            {{ form.valor(class="form-control", step="0.01") }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.atividade.label(class="form-label") }}
+                            {{ form.atividade(class="form-control") }}
+                        </div>
+
+                        <button type="submit" class="btn btn-success">
+                            Salvar alterações
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

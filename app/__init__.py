@@ -7,8 +7,16 @@ from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
 import os 
 
+# importando plataforma resend
+import resend
+
 # Carrega as variáveis de ambientes definidos no arquico .env
 load_dotenv('.env')
+
+#Recuperando chave secreta do .env
+RESEND_API_KEY = os.getenv("RESEND_API_KEY")
+# configurando a API do resend, use a chave para autenticar minha aplicação
+resend.api_key = RESEND_API_KEY
 
 
 # Instância das extensões 

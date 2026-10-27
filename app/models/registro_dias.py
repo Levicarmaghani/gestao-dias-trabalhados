@@ -7,6 +7,7 @@ class RegistroTrabalho(db.Model):
     data = db.Column(db.Date, nullable=False)
     local = db.Column(db.String(100), nullable=True)
     valor = db.Column(db.Float, nullable=False)
+    atividade = db.Column(db.Text,nullable = True)
 
     # # Relação 1:N entre User e RegistroTrabalho
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)

@@ -1,0 +1,25 @@
+
+/* Tabela com colunas de larguras iguais */
+.tabela-registros {
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Padroniza as células */
+.tabela-registros th,
+.tabela-registros td {
+    width: 20%;
+    text-align: center;
+    vertical-align: middle;
+    overflow-wrap: break-word;
+}
+
+/* Padroniza os botões */
+.btn-tabela {
+    min-width: 110px;
+}
+
+/* Remove a margem do formulário */
+.form-excluir {
+    margin: 0;
+}
