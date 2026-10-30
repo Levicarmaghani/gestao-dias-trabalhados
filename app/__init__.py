@@ -44,8 +44,8 @@ def create_app():
     # Registro dos blueprints
     from app.views import main_bp
 
-    from app.views import registro_dias_routes 
-    from app.views import autenticacao 
+    from app.models.cadastro_usuario import User, PasswordReset
+    from app.models.registro_dias import RegistroTrabalho
     
     app.register_blueprint(main_bp)
 
